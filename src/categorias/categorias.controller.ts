@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common'
 import { CriarCategoriaDto } from './dtos/criar-categoria.dto'
 import { AtualizarCategoriaDto } from './dtos/atualizar-categoria.dto'
+import { DesafioStatusValidaPipe } from 'src/desafios/pipes/desafio-status-validation.pipe'
 
 @Controller('api/v1/categorias')
 export class CategoriasController {
@@ -41,7 +42,7 @@ export class CategoriasController {
   @Put('/:categoria')
   @UsePipes(ValidationPipe)
   async atualizarCategoria(
-    @Body() atualizarCategoriaDto: AtualizarCategoriaDto,
+    @Body(DesafioStatusValidaPipe) atualizarCategoriaDto: AtualizarCategoriaDto,
     @Param('categoria') categoria: string
   ): Promise<void> {
     await this.categoriasService.atualizarCategoria(
